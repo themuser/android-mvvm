@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout >
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="xyz.themuser.mvvm.MainViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+
+        <EditText
+            android:id="@+id/et_first"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:text="@{viewModel.first}"
+            app:layout_constraintBaseline_toBaselineOf="@+id/et_second"
+            app:layout_constraintEnd_toStartOf="@+id/btn_sum"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="1" />
+
+
+        <Button
+            android:id="@+id/btn_sum"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="10dp"
+            android:onClick="@{viewModel::onBtnSumClick}"
+            android:text="+"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_result"
+            app:layout_constraintEnd_toStartOf="@+id/et_second"
+            app:layout_constraintStart_toEndOf="@+id/et_first"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/et_second"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="17dp"
+            android:inputType="number"
+            android:text="@{viewModel.second}"
+            app:layout_constraintEnd_toStartOf="@+id/tv_result"
+            app:layout_constraintStart_toEndOf="@+id/btn_sum"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="3" />
+
+
+        <TextView
+            android:id="@+id/tv_result"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="164dp"
+            android:text="@{viewModel.result}"
+            android:textColor="@color/colorAccent"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/et_second"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="4" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
