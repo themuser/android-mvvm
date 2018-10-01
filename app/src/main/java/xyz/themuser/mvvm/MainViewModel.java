@@ -1,52 +1,61 @@
 package xyz.themuser.mvvm;
 
-import android.databinding.BaseObservable;
+import android.databinding.ObservableField;
 import android.util.Log;
 import android.view.View;
 
-public class MainViewModel extends BaseObservable {
+import java.util.Objects;
+
+public class MainViewModel {
     private static final String TAG = MainViewModel.class.getSimpleName();
 
-    private String first;
-    private String second;
-    private String result;
+    private final Repository repository;
 
-    public MainViewModel(String first, String second){
-        this.first = first;
-        this.second = second;
+    public ObservableField<String> first = new ObservableField<>();
+    public ObservableField<String> second = new ObservableField<>();
+    public ObservableField<String> result = new ObservableField<>();
+    private Repository.Item item;
+
+    public MainViewModel(Repository repository) {
+        this.repository = repository;
     }
 
-    public void sum() {
-        result = (Integer.parseInt(first) + Integer.parseInt(second)) + "";
-        notifyChange();
+    public void loadRepository(){
+        String first = "123";
+        String second = "789";
+        Repository.Item item = new Repository.Item(first, second);
+        loadRepositoryItem(item);
     }
 
-    public void onBtnSumClick(View v) {
+    private void loadRepositoryItem(final Repository.Item item){
+        this.first.set(item.first);
+        this.second.set(item.second);
+    }
+
+    public void onFirstTextChanged(CharSequence s, int start, int before, int count) {
+        Log.d(TAG, "onTextChanged " + s);
+        this.first.set(s.toString());
+        sum();
+    }
+
+    public void onSecondTextChanged(CharSequence s, int start, int before, int count) {
+        Log.d(TAG, "onTextChanged " + s);
+        this.second.set(s.toString());
+        sum();
+    }
+
+    public void onBtnSumClick(final View v) {
         Log.d(TAG, "btnSumClick.");
         sum();
     }
 
-    public String getFirst() {
-        return first;
+    private void sum() {
+        Log.d(TAG, "Calculate sum");
+        final int first = Integer.parseInt(this.first.get() != null && !Objects.requireNonNull(this.first.get()).isEmpty() ? this.first.get() : "0");
+        final int second = Integer.parseInt(this.second.get() != null && !Objects.requireNonNull(this.second.get()).isEmpty() ? this.second.get() : "0");
+        final int result = first + second;
+
+        this.result.set(result + "");
     }
 
-    public void setFirst(String first) {
-        this.first = first;
-    }
-
-    public String getSecond() {
-        return second;
-    }
-
-    public void setSecond(String second) {
-        this.second = second;
-    }
-
-    public String getResult() {
-        return result;
-    }
-
-    public void setResult(String result) {
-        this.result = result;
-    }
 }
