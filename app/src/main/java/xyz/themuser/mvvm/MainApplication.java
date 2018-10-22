@@ -22,7 +22,7 @@ public class MainApplication extends Application {
         super.onCreate();
     }
 
-    public Repository getRepository(){
+    public IRepository getRepository() {
         return new Repository();
     }
 }

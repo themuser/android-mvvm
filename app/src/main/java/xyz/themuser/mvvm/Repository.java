@@ -1,14 +1,17 @@
 package xyz.themuser.mvvm;
 
-public class Repository {
+public class Repository implements IRepository {
 
-    public static class Item {
-        public final String first;
-        public final String second;
+    private Item item = new Item(null, null);
 
-        public Item(String first, String second) {
-            this.first = first;
-            this.second = second;
-        }
+    public Item getItem() {
+        return item;
+    }
+
+    @Override
+    public String toString() {
+        return "Repository{" +
+            "item=" + item +
+            '}';
     }
 }
